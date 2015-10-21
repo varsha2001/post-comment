@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<p div="navbar-text pull-right">
+<% if user_signed_in? %>
+  Logged in as <strong><%= current_user.email %></strong>.
+  <%= link_to 'Edit profile', edit_user_registration_path %> |
+  <%= link_to "Logout", destroy_session_path(:user), method: :delete %>
+<% else %>
+  <%= link_to "Sign up", new_user_registration_path  %> |
+  <%= link_to "Login", new_user_session_path  %>
+<% end %>
+</div>
+
+
+<%= form_for @user, :as => :user, :url => users_sign_up_path do |f| %>
+
+<%=f.label :role_id %><br>
+<%= f.select(:role_id,[["select",""],["admin","admin"],["employee","employee"]])%><br>
+<% end%>
+
+<%= yield %>
+
+
+</body>
+</html>
